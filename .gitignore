@@ -26,9 +26,6 @@ TEXT.md
 .bundle
 .DS_Store
 config/database.yml
-db/*.sqlite3
-db/*.sqlite
-db/*.sqlite3-journal
 log/*.log
 tmp/
 .sass-cache/
