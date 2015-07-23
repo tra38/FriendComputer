@@ -1,0 +1,9 @@
+<% TwitterHandle.all.each do |twitter_user|%>
+  <h3><%= twitter_user.twitter_id %></h3>
+    <%twitter_user.keywords.each do |keyword| %>
+      <h4><%= keyword.text %></h4>
+      <p><%= keyword.relevance %></p>
+      <p><%= keyword.sentiment %></p>
+      <p><%= keyword.sentiment_strength%></p>
+  <%end%>
+<%end%>
