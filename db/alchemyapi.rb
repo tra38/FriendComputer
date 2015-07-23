@@ -92,7 +92,7 @@ class AlchemyAPI
 	def initialize()
 
 		begin
-			key = ENV["ALCHEMYAPI_KEY"]
+			key = ENV["ALCHEMYAPI_KEY"].dup
 			key.strip!
 
 			if key.empty?
@@ -114,7 +114,7 @@ class AlchemyAPI
 			puts 'API Key not found! Please copy/paste your API key into the config file!'
 			puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
 			puts err
-			puts ENV["ALCHEMYAPI_KEY"]
+			puts ENV["ALCHEMYAPI_KEYir"]
 		end
 	end
 
