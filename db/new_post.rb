@@ -17,3 +17,5 @@ end
 twitter_handle = ARGV[0]
 
 get_tweet_information(twitter_handle)
+
+write_blog_post(Twitter_Handle.find_by(twitter_id: twitter_handle))

@@ -114,7 +114,7 @@ class AlchemyAPI
 			puts 'API Key not found! Please copy/paste your API key into the config file!'
 			puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
 			puts err
-			puts ENV["ALCHEMYAPI_KEYir"]
+			puts ENV["ALCHEMYAPI_KEY"]
 		end
 	end
 
