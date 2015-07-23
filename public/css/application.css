@@ -1,6 +1,8 @@
 .container {
-  width: 50%;
-  margin: 0 auto;
+  width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px dotted black;
 }
 
 .post {
@@ -10,6 +12,12 @@
 h3
 {
   text-align: center;
+}
+
+footer
+{
+  margin-left: 7%;
+  margin-right: 7%;
 }
 
 #left-header {
