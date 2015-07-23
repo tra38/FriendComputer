@@ -97,26 +97,22 @@ class AlchemyAPI
 
 			if key.empty?
 				#The key file should't be blank
-				puts 'The api_key.txt file appears to be blank, please copy/paste your API key in the file: api_key.txt'
+				puts 'The api_key appears to be blank, please copy/paste your API key into the config file!'
 				puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
 				Process.exit(1)
 			end
 
 			if key.length != 40
 				#Keys should be exactly 40 characters long
-				puts 'It appears that the key in api_key.txt is invalid. Please make sure the file only includes the API key, and it is the correct one.'
+				puts 'It appears that the api_key is invalid. Please make sure the file only includes the API key, and it is the correct one.'
 				Process.exit(1)
 			end
 
 			@apiKey = key
 		rescue => err
 			#The file doesn't exist, so show the message and create the file.
-			puts 'API Key not found! Please copy/paste your API key into the file: api_key.txt'
+			puts 'API Key not found! Please copy/paste your API key into the config file!'
 			puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
-
-			#create a blank file to hold the key
-			File.open("api_key.txt", "w") {}
-			Process.exit(1)
 		end
 	end
 
@@ -705,32 +701,3 @@ class AlchemyAPI
 		return JSON.parse(res.body)
 	end
 end
-
-
-
-# Writes the API key to api_key.txt file. It will create the file if it doesn't exist.
-# This function is intended to be called from the Python command line using: python -c 'import alchemyapi;alchemyapi.setkey("API_KEY");'
-# If you don't have an API key yet, register for one at: http://www.alchemyapi.com/api/register.html
-#
-# INPUT:
-# key -> Your API key from  Should be 40 hex characters
-#
-# OUTPUT:
-# none
-#
-
-if __FILE__==$0
-  	# this will only run if the script was the main, not load'd or require'd
-	if ARGV.length == 1
-		if (ARGV[0].length == 40)
-			puts 'Key: ' + ARGV[0] + ' was written to api_key.txt'
-			puts 'You are now ready to start using AlchemyAPI. For an example, run: ruby example.rb'
-			File.open('api_key.txt','w') {|f| f.write(ARGV[0]) }
-		else
-			puts 'The key appears to invalid. Please make sure to use the 40 character key assigned by AlchemyAPI'
-		end
-	end
-
-end
-
-
