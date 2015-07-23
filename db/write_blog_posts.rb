@@ -13,7 +13,7 @@ def essay(args)
 end
 
 def introduction(twitter_id)
-  ["I am a great fan of #{twitter_id}, and I wanted to #{educate} people about this person's #{wonderful} beliefs.","Recently, I have been browsing the web and stumbled upon #{twitter_id}'s Twitter Account. I want to #{educate} people about this #{wonderful} account.","If I ever wanted to learn more about the world, I would head straight to the twitter account of #{twitter_id} and read the #{wonderful} tweets that are contained there.", "#{twitter_id} is an expert in content curation, and would frequently post #{wonderful} content to #{educate} the audience. Today, I will #{educate} you about #{twitter_id}.","#{twitter_id}'s #{wonderful} tweets will help to #{educate} our future generations. To help guide you on the path to understand, I have decided to give an overview of #{twitter_id}'s personal beliefs.","#{twitter_id} has developed a #{wonderful} social media presence that should not be underestimed. I studied #{twitter_id}'s twitter account deeply and want to convey my insights to you."].sample
+  ["I am a great fan of #{twitter_id}, and I wanted to #{educate} people about this person's #{wonderful} beliefs.","Recently, I have been browsing the web and stumbled upon #{twitter_id}'s Twitter Account. I want to #{educate} people about this #{wonderful} account.","If I ever wanted to learn more about the world, I would head straight to the twitter account of #{twitter_id} and read the #{wonderful} tweets that are contained there.", "#{twitter_id} is an expert in content curation, and would frequently post #{wonderful} content to #{educate} the audience. Today, I will #{educate} you about #{twitter_id}.","#{twitter_id}'s #{wonderful} tweets will help to #{educate} our future generations. To help guide you on the path to understanding, I have decided to give an overview of #{twitter_id}'s personal beliefs.","#{twitter_id} has developed a #{wonderful} social media presence that should not be underestimed. I studied #{twitter_id}'s twitter account deeply and want to convey my insights to you."].sample
 end
 
 def explaining
@@ -61,6 +61,9 @@ def conclusion(twitter_id)
   "#{twitter_id} is a very #{helpful} fellow who you should follow. I have learned a lot from #{reading} #{twitter_id}'s insights, and you too can benefit as well."
 end
 
+def title(twitter_id)
+  ["Learning about #{twitter_id}", "Discovering #{twitter_id}", "Examining #{twitter_id}","Explaining #{twitter_id}","An Introduction To #{twitter_id}"].sample
+end
 
 def write_blog_post(twitter_handle_db)
   most_important_keyword = nil
@@ -84,9 +87,5 @@ def write_blog_post(twitter_handle_db)
       most_important_keyword_value = relevance_value
     end
   end
-  puts "#{essay(twitter_id: twitter_handle_db.twitter_id, most_important_keyword: most_important_keyword, happiest_keyword: happiest_keyword, saddest_keyword: saddest_keyword, most_important_keyword_value: most_important_keyword_value, happiest_keyword_value: happiest_keyword_value, saddest_keyword_value: saddest_keyword_value)}"
-end
-
-TwitterHandle.all.each do |twitter_user_db|
-  write_blog_post(twitter_user_db)
+  "#{essay(twitter_id: twitter_handle_db.twitter_id, most_important_keyword: most_important_keyword, happiest_keyword: happiest_keyword, saddest_keyword: saddest_keyword, most_important_keyword_value: most_important_keyword_value, happiest_keyword_value: happiest_keyword_value, saddest_keyword_value: saddest_keyword_value)}"
 end
