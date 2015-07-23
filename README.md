@@ -1,5 +1,5 @@
 # Friend-Computer
-Automated Blogging software.
+Automated Blogging software, using AlchemyAPI.
 
 "As a blog owner, you know that keeping fresh content on your blog daily can be a tedious and time-consuming task."---LWOF Spokesperson for BlogDominator.com
 
