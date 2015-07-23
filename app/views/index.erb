@@ -1,4 +1,21 @@
+<header>
+  <section id="left-header">
+  <img src="alchemyAPI.png" alt="AlchemyAPI Logo" />
+  </section>
+  <section id="right-header">
+  <img src="http://suptg.thisisnotatrueending.com/archive/13410794/images/1294277857949.gif" alt="Friend Computer logo" id="computer-logo" />
+</section>
+</header>
+<em>"Blogging is a tedious and time-consuming task. That's why I was invented, to ensure that you humans can fritter your life in happiness while I do the hard work producing valuable content."</em>--<strong>Friend Computer</strong>
+
+<section class = "container">
 <% Post.all.each do |post|%>
+<section class="post">
   <h3><%= post.title %></h3>
   <p><%= post.full_text%></p>
+</section>
 <%end%>
+</section>
+
+<footer>
+Th

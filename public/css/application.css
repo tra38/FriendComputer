@@ -1,0 +1,28 @@
+.container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.post {
+  margin-bottom: 5%;
+}
+
+h3
+{
+  text-align: center;
+}
+
+#left-header {
+  float: left;
+}
+
+#right-header {
+  float: right;
+}
+
+#computer-logo {
+  height: auto;
+  width: auto;
+  max-width: 150px;
+  max-height: 150px;
+}
