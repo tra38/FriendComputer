@@ -85,23 +85,23 @@ class AlchemyAPI
 	@@ENDPOINTS['image_tag'] = {}
 	@@ENDPOINTS['image_tag']['url'] = '/url/URLGetRankedImageKeywords'
 	@@ENDPOINTS['image_tag']['image'] = '/image/ImageGetRankedImageKeywords'
-		
+
 	@@BASE_URL = 'http://access.alchemyapi.com/calls'
-	
-	
+
+
 	def initialize()
-	
+
 		begin
-			key = File.read('api_key.txt')
+			key = ENV["ALCHEMYAPI_KEY"]
 			key.strip!
 
 			if key.empty?
 				#The key file should't be blank
 				puts 'The api_key.txt file appears to be blank, please copy/paste your API key in the file: api_key.txt'
-				puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'			
+				puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
 				Process.exit(1)
 			end
-			
+
 			if key.length != 40
 				#Keys should be exactly 40 characters long
 				puts 'It appears that the key in api_key.txt is invalid. Please make sure the file only includes the API key, and it is the correct one.'
@@ -113,7 +113,7 @@ class AlchemyAPI
 			#The file doesn't exist, so show the message and create the file.
 			puts 'API Key not found! Please copy/paste your API key into the file: api_key.txt'
 			puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
-		
+
 			#create a blank file to hold the key
 			File.open("api_key.txt", "w") {}
 			Process.exit(1)
@@ -127,17 +127,17 @@ class AlchemyAPI
 	# Calculates the sentiment for text, a URL or HTML.
 	# For an overview, please refer to: http://www.alchemyapi.com/products/features/sentiment-analysis/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/sentiment-analysis/
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e. text, url or html.
 	# data -> the data to analyze, either the text, the url or html code.
 	# options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-	# 
+	#
 	# Available Options:
 	# showSourceText -> 0: disabled (default), 1: enabled
  	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
  	#
 	def sentiment(flavor, data, options = {})
 		unless @@ENDPOINTS['sentiment'].key?(flavor)
@@ -159,12 +159,12 @@ class AlchemyAPI
 	# data -> the data to analyze, either the text, the url or html code.
 	# target -> the word or phrase to run sentiment analysis on.
 	# options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-	#	
+	#
 	# Available Options:
 	# showSourceText	-> 0: disabled, 1: enabled
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def sentiment_targeted(flavor, data, target, options = {})
 		if target == '' || target == nil
@@ -183,25 +183,25 @@ class AlchemyAPI
 
 
 	# Extracts the entities for text, a URL or HTML.
-	# For an overview, please refer to: http://www.alchemyapi.com/products/features/entity-extraction/ 
+	# For an overview, please refer to: http://www.alchemyapi.com/products/features/entity-extraction/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/entity-extraction/
 	#
 	# INPUT:
 	# flavor -> which version of the call, i.e. text, url or html.
 	# data -> the data to analyze, either the text, the url or html code.
 	# options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-	# 
+	#
 	# Available Options:
 	# disambiguate -> disambiguate entities (i.e. Apple the company vs. apple the fruit). 0: disabled, 1: enabled (default)
-	# linkedData -> include linked data on disambiguated entities. 0: disabled, 1: enabled (default) 
+	# linkedData -> include linked data on disambiguated entities. 0: disabled, 1: enabled (default)
 	# coreference -> resolve coreferences (i.e. the pronouns that correspond to named entities). 0: disabled, 1: enabled (default)
 	# quotations -> extract quotations by entities. 0: disabled (default), 1: enabled.
 	# sentiment -> analyze sentiment for each entity. 0: disabled (default), 1: enabled. Requires 1 additional API transction if enabled.
-	# showSourceText -> 0: disabled (default), 1: enabled 
+	# showSourceText -> 0: disabled (default), 1: enabled
 	# maxRetrieve -> the maximum number of entities to retrieve (default: 50)
-	# 
+	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def entities(flavor, data, options = {})
 		unless @@ENDPOINTS['entities'].key?(flavor)
@@ -227,7 +227,7 @@ class AlchemyAPI
 	# none
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def author(flavor, data, options = {})
 		unless @@ENDPOINTS['author'].key?(flavor)
@@ -248,7 +248,7 @@ class AlchemyAPI
 	# flavor -> which version of the call, i.e. text, url or html.
 	# data -> the data to analyze, either the text, the url or html code.
 	# options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-	#		
+	#
 	# Available Options:
 	# keywordExtractMode -> normal (default), strict
 	# sentiment -> analyze sentiment for each keyword. 0: disabled (default), 1: enabled. Requires 1 additional API transaction if enabled.
@@ -256,8 +256,8 @@ class AlchemyAPI
 	# maxRetrieve -> the max number of keywords returned (default: 50)
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
-	#	
+	# The response, already converted from JSON to a Ruby object.
+	#
 	def keywords(flavor, data, options = {})
 		unless @@ENDPOINTS['keywords'].key?(flavor)
 			return { 'status'=>'ERROR', 'statusInfo'=>'keyword extraction for ' + flavor + ' not available' }
@@ -268,10 +268,10 @@ class AlchemyAPI
 		return analyze(@@ENDPOINTS['keywords'][flavor], options)
 	end
 
-	
+
 	# Tags the concepts for text, a URL or HTML.
 	# For an overview, please refer to: http://www.alchemyapi.com/products/features/concept-tagging/
-	# For the docs, please refer to: http://www.alchemyapi.com/api/concept-tagging/ 
+	# For the docs, please refer to: http://www.alchemyapi.com/api/concept-tagging/
 	#
 	# Available Options:
 	# maxRetrieve -> the maximum number of concepts to retrieve (default: 8)
@@ -279,7 +279,7 @@ class AlchemyAPI
 	# showSourceText -> 0:disabled (default), 1: enabled
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def concepts(flavor, data, options = {})
 		unless @@ENDPOINTS['concepts'].key?(flavor)
@@ -303,9 +303,9 @@ class AlchemyAPI
 	#
 	# Available Options:
 	# showSourceText -> 0: disabled (default), 1: enabled
-	# 
+	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def category(flavor, data, options = {})
 		unless @@ENDPOINTS['category'].key?(flavor)
@@ -319,7 +319,7 @@ class AlchemyAPI
 
 
 	# Extracts the relations for text, a URL or HTML.
-	# For an overview, please refer to: http://www.alchemyapi.com/products/features/relation-extraction/ 
+	# For an overview, please refer to: http://www.alchemyapi.com/products/features/relation-extraction/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/relation-extraction/
 	#
 	# INPUT:
@@ -335,12 +335,12 @@ class AlchemyAPI
 	# sentimentExcludeEntities -> exclude full entity name in sentiment analysis. 0: disabled, 1: enabled (default)
 	# disambiguate -> disambiguate entities (i.e. Apple the company vs. apple the fruit). 0: disabled, 1: enabled (default)
 	# linkedData -> include linked data with disambiguated entities. 0: disabled, 1: enabled (default).
-	# coreference -> resolve entity coreferences. 0: disabled, 1: enabled (default)  
+	# coreference -> resolve entity coreferences. 0: disabled, 1: enabled (default)
 	# showSourceText -> 0: disabled (default), 1: enabled.
 	# maxRetrieve -> the maximum number of relations to extract (default: 50, max: 100)
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def relations(flavor, data, options = {})
 		unless @@ENDPOINTS['relations'].key?(flavor)
@@ -354,7 +354,7 @@ class AlchemyAPI
 
 
 	# Detects the language for text, a URL or HTML.
-	# For an overview, please refer to: http://www.alchemyapi.com/api/language-detection/ 
+	# For an overview, please refer to: http://www.alchemyapi.com/api/language-detection/
 	# For the docs, please refer to: http://www.alchemyapi.com/products/features/language-detection/
 	#
 	# INPUT:
@@ -382,7 +382,7 @@ class AlchemyAPI
 	# Extracts the cleaned text (removes ads, navigation, etc.) for text, a URL or HTML.
 	# For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e. text, url or html.
 	# data -> the data to analyze, either the text, the url or html code.
@@ -391,9 +391,9 @@ class AlchemyAPI
 	# Available Options:
 	# useMetadata -> utilize meta description data, 0: disabled, 1: enabled (default)
 	# extractLinks -> include links, 0: disabled (default), 1: enabled.
-	# 
+	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def text(flavor, data, options = {})
 		unless @@ENDPOINTS['text'].key?(flavor)
@@ -407,9 +407,9 @@ class AlchemyAPI
 
 
 	# Extracts the raw text (includes ads, navigation, etc.) for a URL or HTML.
-	# For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/ 
+	# For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e. text, url or html.
 	# data -> the data to analyze, either the text, the url or html code.
@@ -419,7 +419,7 @@ class AlchemyAPI
 	# none
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def text_raw(flavor, data, options = {})
 		unless @@ENDPOINTS['text_raw'].key?(flavor)
@@ -433,19 +433,19 @@ class AlchemyAPI
 
 
 	# Extracts the title for a URL or HTML.
-	# For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/ 
+	# For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
 	#
 	# INPUT:
 	# flavor -> which version of the call, i.e. text, url or html.
 	# data -> the data to analyze, either the text, the url or html code.
 	# options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-	# 
+	#
 	# Available Options:
-	# useMetadata -> utilize title info embedded in meta data, 0: disabled, 1: enabled (default) 
+	# useMetadata -> utilize title info embedded in meta data, 0: disabled, 1: enabled (default)
 
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def title(flavor, data, options = {})
 		unless @@ENDPOINTS['title'].key?(flavor)
@@ -471,7 +471,7 @@ class AlchemyAPI
 	# none
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def microformats(flavor, data, options = {})
 		unless @@ENDPOINTS['microformats'].key?(flavor)
@@ -485,9 +485,9 @@ class AlchemyAPI
 
 
 	# Detects the RSS/ATOM feeds for a URL or HTML.
-	# For an overview, please refer to: http://www.alchemyapi.com/products/features/feed-detection/ 
+	# For an overview, please refer to: http://www.alchemyapi.com/products/features/feed-detection/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/feed-detection/
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e.  url or html.
 	# data -> the data to analyze, either the the url or html code.
@@ -497,7 +497,7 @@ class AlchemyAPI
 	# none
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def feeds(flavor, data, options = {})
 		unless @@ENDPOINTS['feeds'].key?(flavor)
@@ -513,7 +513,7 @@ class AlchemyAPI
 	# Categorizes the text for a URL, text or HTML.
 	# For an overview, please refer to: http://www.alchemyapi.com/products/features/text-categorization/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/taxonomy/
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e.  url, text or html.
 	# data -> the data to analyze, either the the url, text or html code.
@@ -523,7 +523,7 @@ class AlchemyAPI
 	# showSourceText -> 0: disabled (default), 1: enabled.
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def taxonomy(flavor, data, options = {})
 		unless @@ENDPOINTS['taxonomy'].key?(flavor)
@@ -537,7 +537,7 @@ class AlchemyAPI
 
 
 	# Combined call (see options below for available extractions) for a URL or text.
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e.  url or text.
 	# data -> the data to analyze, either the the url or text.
@@ -545,7 +545,7 @@ class AlchemyAPI
 	#
 	# Available Options:
 	# extract -> VALUE,VALUE,VALUE,... (possible VALUEs: page-image,entity,keyword,title,author,taxonomy,concept,relation,doc-sentiment)
-	# extractMode -> (only applies when 'page-image' VALUE passed to 'extract' option) 
+	# extractMode -> (only applies when 'page-image' VALUE passed to 'extract' option)
 	# 		trust-metadata: less CPU-intensive, less accurate
 	# 		always-infer: more CPU-intensive, more accurate
 	# disambiguate -> whether to disambiguate detected entities, 0: disabled, 1: enabled (default)
@@ -557,7 +557,7 @@ class AlchemyAPI
 	# maxRetrieve -> maximum number of named entities to extract (default: 50)
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def combined(flavor, data, options = {})
 		unless @@ENDPOINTS['combined'].key?(flavor)
@@ -571,7 +571,7 @@ class AlchemyAPI
 
 
 	# Extract image from a URL.
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e.  url.
 	# data -> the data to analyze, i.e. the url.
@@ -581,7 +581,7 @@ class AlchemyAPI
 	# extractMode -> trust-metadata: less CPU-intensive and less accurate, always-infer: more CPU-intensive and more accurate
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def image_extract(flavor, data, options = {})
 		unless @@ENDPOINTS['image_extract'].key?(flavor)
@@ -597,7 +597,7 @@ class AlchemyAPI
 	# Tag image from a URL or raw image data.
 	# For an overview, please refer to: http://www.alchemyapi.com/products/features/image-tagging/
 	# For the docs, please refer to: http://www.alchemyapi.com/api/image-tagging/
-	# 
+	#
 	# INPUT:
 	# flavor -> which version of the call, i.e.  url or image.
 	# data -> the data to analyze, the url
@@ -610,7 +610,7 @@ class AlchemyAPI
 	#  		raw: pass an unencoded image file using POST
 	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
+	# The response, already converted from JSON to a Ruby object.
 	#
 	def image_tag(flavor, data, options = {}, image = '')
 		unless @@ENDPOINTS['image_tag'].key?(flavor)
@@ -627,15 +627,15 @@ class AlchemyAPI
 
 	private
 
-	# HTTP Request wrapper that is called by the endpoint functions. This function is not intended to be called through an external interface. 
-	# It makes the call, then converts the returned JSON string into a Ruby object. 
+	# HTTP Request wrapper that is called by the endpoint functions. This function is not intended to be called through an external interface.
+	# It makes the call, then converts the returned JSON string into a Ruby object.
 	#
 	# INPUT:
 	# url -> the full URI encoded url
-	# 
+	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
-	# 
+	# The response, already converted from JSON to a Ruby object.
+	#
 	def analyze(url, options)
 
 		#Insert the base URL
@@ -662,16 +662,16 @@ class AlchemyAPI
 		return JSON.parse(res.body)
 	end
 
-	# HTTP Request wrapper that is called by the endpoint functions. This function is not intended to be called through an external interface. 
-	# It makes the call, then converts the returned JSON string into a Ruby object. 
+	# HTTP Request wrapper that is called by the endpoint functions. This function is not intended to be called through an external interface.
+	# It makes the call, then converts the returned JSON string into a Ruby object.
 	#
 	# INPUT:
 	# url -> the full URI encoded url
 	# body -> the raw binary image data
-	# 
+	#
 	# OUTPUT:
-	# The response, already converted from JSON to a Ruby object. 
-	# 
+	# The response, already converted from JSON to a Ruby object.
+	#
 	def analyze_image(url, options, body)
 
 		#Insert the base URL
@@ -700,7 +700,7 @@ class AlchemyAPI
 		res = Net::HTTP.start(uri.host, uri.port) do |http|
 			http.request(request)
 		end
-		
+
 		#parse and return the response
 		return JSON.parse(res.body)
 	end
@@ -711,10 +711,10 @@ end
 # Writes the API key to api_key.txt file. It will create the file if it doesn't exist.
 # This function is intended to be called from the Python command line using: python -c 'import alchemyapi;alchemyapi.setkey("API_KEY");'
 # If you don't have an API key yet, register for one at: http://www.alchemyapi.com/api/register.html
-# 
+#
 # INPUT:
 # key -> Your API key from  Should be 40 hex characters
-# 
+#
 # OUTPUT:
 # none
 #
