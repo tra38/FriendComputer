@@ -113,6 +113,8 @@ class AlchemyAPI
 			#The file doesn't exist, so show the message and create the file.
 			puts 'API Key not found! Please copy/paste your API key into the config file!'
 			puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
+			puts err
+			puts ENV["ALCHEMYAPI_KEY"]
 		end
 	end
 
