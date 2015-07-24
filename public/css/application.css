@@ -34,3 +34,7 @@ footer
   max-width: 150px;
   max-height: 150px;
 }
+
+html {
+  background-color: #f1f1f1;
+}
