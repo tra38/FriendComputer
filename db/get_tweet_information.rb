@@ -2,7 +2,7 @@ require 'twitter'
 require 'pp'
 require_relative 'alchemyapi'
 
-class Tweet_Scrapper
+class Tweet_Scraper
   def initialize
     @client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"]
