@@ -1,4 +1,4 @@
-require './alchemyapi'
+require_relative 'alchemyapi'
 require 'twitter'
 require 'pp'
 require ::File.expand_path('../../config/environment', __FILE__)

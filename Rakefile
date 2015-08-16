@@ -138,10 +138,10 @@ task "console" do
   exec "irb -r./config/environment"
 end
 
-# desc 'Generate a blog post based on a Twitter Handle'
-# task :blog,[tweet] do
-#   require 'db/new_post'
-# end
+desc 'Generate a blog post based on a Twitter Handle'
+task :blog[:twitter_handle] do |t, args|
+  require_relative 'db/new_post'
+end
 
 # In a production environment like Heroku, RSpec might not
 # be available.  To handle this, rescue the LoadError.
