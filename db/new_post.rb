@@ -14,4 +14,6 @@ twitter_handle = ARGV[0]
 
 tweetscraper.get_tweet_information(twitter_handle)
 
-puts PostConstructor.write_blog_post(TwitterHandle.find_by(twitter_id: twitter_handle))
+Post.create(title: Word.title(twitter_handle),
+  full_text: PostConstructor.write_blog_post(TwitterHandle.find_by(twitter_id: twitter_handle))
+)

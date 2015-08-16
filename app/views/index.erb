@@ -9,9 +9,10 @@
 <em>"Blogging is a tedious and time-consuming task. That's why I was invented, to ensure that you humans can fritter your life in happiness while I do the hard work producing valuable content."</em>--<strong>Friend Computer</strong>
 
 <section class = "container">
-<% Post.all.each do |post|%>
+<% Post.order(:created_at).all.each do |post|%>
 <section class="post">
   <h3><%= post.title %></h3>
+  <h5>Posted on <%= post.created_at%></h5>
   <p><%= post.full_text%></p>
 </section>
 <%end%>

@@ -17,6 +17,8 @@ gem 'twitter'
 
 gem 'shotgun'
 
+gem 'whenever'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
