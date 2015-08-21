@@ -125,6 +125,3 @@ DEPENDENCIES
   sinatra-contrib
   twitter
   whenever
-
-BUNDLED WITH
-   1.10.5
