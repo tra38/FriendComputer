@@ -139,7 +139,8 @@ task "console" do
 end
 
 desc 'Generate a blog post based on a Twitter Handle'
-task :blog[:twitter_handle] do |t, args|
+task :blog, [:twitter_handle] do |t, args|
+  ARGV[0] = args[:twitter_handle]
   require_relative 'db/new_post'
 end
 
