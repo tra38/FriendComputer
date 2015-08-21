@@ -46,3 +46,4 @@ chromedriver.log
 bin/
 .env
 *.swp
+api.txt
